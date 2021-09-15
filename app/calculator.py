@@ -36,7 +36,6 @@ class Calculator():
 
     # you may create some new methods at your convenience, or modify these methods, or choose not to use them.
     def is_holiday(self, start_date):
-        print("ASDF")
         pass
 
     def is_peak(self):
