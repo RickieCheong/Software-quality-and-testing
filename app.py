@@ -33,7 +33,6 @@ def operation_result():
 
         # if valid, create calculator to calculate the time and cost
         calculator = Calculator(battery_capacity,initial_charge,final_charge,start_date, start_time, charger_configuration, postcode)
-        print("ASDF")
         # you may change the logic as your like
         duration = calculator.get_duration(start_time)
 
