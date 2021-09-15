@@ -128,7 +128,7 @@
             <td>{{ form.StartDate.label }}</td>
             <td>
               {# {{ form.StartDate }}#}
-              <input type="text" name="StartDate" id="StartDate" placeholder="dd/mm/yyyy"/>
+              <input type="text" name="StartDate" id="StartDate" placeholder="dd/asdfadfs/yyyy"/>
             </td>
           </tr>
 
@@ -216,9 +216,9 @@
       // Get the modal
       var modal = document.getElementById("myModal");
 
-      {% if calculation_success == True %}
+      if (calculation_success == true){
       modal.style.display = "block";
-      {% endif %}
+      }
 
       // Get the button that opens the modal
       //var btn = document.getElementById("myBtn");

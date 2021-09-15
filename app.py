@@ -1,3 +1,4 @@
+from typing import final
 from flask import Flask, flash
 from flask import render_template
 from flask import request
@@ -20,8 +21,6 @@ def operation_result():
 
     # validation of the form
     if request.method == "POST" and calculator_form.validate():
-        # if valid, create calculator to calculate the time and cost
-        calculator = Calculator()
 
         # extract information from the form
         battery_capacity = request.form['BatteryPackCapacity']
@@ -30,7 +29,11 @@ def operation_result():
         start_date = request.form['StartDate']
         start_time = request.form['StartTime']
         charger_configuration = request.form['ChargerConfiguration']
+        postcode = request.form['PostCode']
 
+        # if valid, create calculator to calculate the time and cost
+        calculator = Calculator(battery_capacity,initial_charge,final_charge,start_date, start_time, charger_configuration, postcode)
+        print("ASDF")
         # you may change the logic as your like
         duration = calculator.get_duration(start_time)
 
