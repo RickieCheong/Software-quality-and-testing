@@ -1,4 +1,11 @@
-test = "7"
-test2 = "asdf"
+import holidays
+import requests
+from datetime import datetime
 
-print(int(test) > int(test2))
+for i in holidays.Australia(years = 2021).items():
+    date_obj = datetime.strptime("27/12/2021", '%d/%m/%Y')
+    if str(i[0].strftime('%d/%m/%Y')) == "27/12/2021":
+        surcharge = True
+        
+response = requests.get("http://api.open-notify.org/astros.json")
+print(response())
