@@ -50,6 +50,11 @@ class Calculator_Form(FlaskForm):
 
     # validate start time here
     def validate_StartTime(self, field):
+        """
+        temp = str(field.data)
+        data = temp.split(":")
+        print(data)
+        """
         pass
 
     # validate charger configuration here
