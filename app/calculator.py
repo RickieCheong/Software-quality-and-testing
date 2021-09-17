@@ -1,6 +1,6 @@
+from datetime import datetime
 import requests
-response = requests.get("http://118.138.246.158/api/v1/location?postcode=3800")
-print(response.json())
+import holidays
 
 class Calculator():
     # you can choose to initialise variables here, if needed.
@@ -36,10 +36,28 @@ class Calculator():
 
     # you may create some new methods at your convenience, or modify these methods, or choose not to use them.
     def is_holiday(self, start_date):
-        pass
+        date_obj = datetime.strptime(start_date, '%d/%m/%Y')
+        surcharge = False
+        """
+        Checking for weekday
+        """
+        if date_obj.weekday() < 5:
+            surcharge = True
+        """
+        Checking for holiday
+        """
+        for i in holidays.Australia(years = date_obj.year).items():
+            if str(i[0].strftime('%d/%m/%Y')) == start_date:
+                surcharge = True
+        return surcharge
 
     def is_peak(self):
-        pass
+        time = self.start_time
+        data = time.split(":")
+        peak = False
+        if int(data[0]) >= 6 and int(data[0]) < 18:
+            peak = True
+        print(peak)
 
     def peak_period(self, start_time):
         pass
