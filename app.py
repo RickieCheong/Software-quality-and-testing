@@ -37,7 +37,7 @@ def operation_result():
         duration = calculator.get_duration(start_time)
 
         is_peak = calculator.is_peak()
-
+        
         if is_peak:
             peak_period = calculator.peak_period(start_date)
 
