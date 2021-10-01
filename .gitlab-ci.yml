@@ -21,4 +21,9 @@ test:
         - pip3 install --upgrade pip
         - pip3 install holidays
         - pip3 install requests
-        - python3 -m unittest test/pyunittest.py
+        - coverage run --source=app --branch -m unittest app/pyunittest.py
+        - coverage report -m
+        - coverage html -d coverage_reports
+    artifact:
+        paths:
+            -coverage_reports/
