@@ -10,7 +10,6 @@ build:
         - pip3 install --upgrade pip
         - pip3 install holidays
         - pip3 install requests
-        - python3 Calendar.py
 
 test:
     stage: test
