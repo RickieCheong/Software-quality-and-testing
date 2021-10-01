@@ -69,13 +69,14 @@ class Calculator_Form(FlaskForm):
 
     # validate postcode here
     def validate_PostCode(self, field):
-        try: 
+        try:
             int(field.data)
         except ValueError:
             raise ValueError("Invalid Postcode")
         data = int(field.data)
-        statement = True # True stating that it's not valid while false means it's valid
-        if (data >= 1000 and data <=2599) or (data >= 2620 and data <=2899) or (data >= 2921 and data <=2999) or (data >= 3000 and data <=3999) or (data >= 8000 and data <=8999) or (data >= 4000 and data <=4999) or (data >= 9000 and data <=9999) or (data >= 5000 and data <=5999) or (data >= 6000 and data <=6999) or (data >= 7000 and data <=7999) or (data >= 200 and data <=299) or (data >= 2600 and data <=2619) or (data >= 2900 and data <=2920) or (data >= 800 and data <=999):
+        statement = True  # True stating that it's not valid while false means it's valid
+        if (200 <= data <= 299) or (800 <= data <= 999) or (1000 <= data <= 6797) or (6800 <= data <= 9999):
             statement = False
         if statement:
             raise ValueError("Invalid Postcode")
+
