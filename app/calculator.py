@@ -29,12 +29,13 @@ class Calculator():
         else:
             surcharge_factor = 1
 
-        cost = (final_state - initial_state) / 100 * capacity * base_price / 100 * surcharge_factor
+        cost = (int(final_state) - int(initial_state)) / 100 * int(capacity) * base_price / 100 * surcharge_factor
+        cost = cost - self.solar_energy(self.start_date)
         return cost
 
     # you may add more parameters if needed, you may also modify the formula.
     def time_calculation(self, initial_state, final_state, capacity, power):
-        time = (final_state - initial_state) / 100 * capacity / power
+        time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
         return time
 
 
@@ -109,7 +110,11 @@ class Calculator():
         date_obj = datetime.strptime(str(moving_date), '%Y-%m-%d')
         response = requests.get("http://118.138.246.158/api/v1/weather?location=" + str(self.id) + "&date=" + str(date_obj.strftime('%Y-%m-%d')))
         temp = response.json()
-        return temp["hourlyWeatherHistory"][time_loc]["cloudCoverPct"]
+        temp = temp["hourlyWeatherHistory"]
+        for i in range(len(temp)):
+            if temp[i]["hour"] == time_loc:
+                return temp[i]["cloudCoverPct"]
+        return 0
 
     def calculate_solar_energy(self):
         sum  = self.solar_energy(self.start_date)
@@ -274,7 +279,8 @@ class Calculator():
 """
 
 #Test case 1 
-temp = Calculator("82","20","80","22/02/2022","17:30","4","7250")
-print(temp.calculate_solar_energy())
+temp = Calculator("82","20","80","22/02/2022","12:30","4","7250")
+# cost = calculator.cost_calculation(initial_charge, final_charge, battery_capacity, is_peak, is_holiday)
 
-
+#time = calculator.time_calculation(initial_charge, final_charge, battery_capacity, power)
+#print(temp.cost_calculation("20","80","82",False,False))
