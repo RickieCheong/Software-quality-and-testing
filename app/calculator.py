@@ -34,7 +34,7 @@ class Calculator:
 
             cost = (int(final_state) - int(initial_state)) / 100 * float(capacity) * base_price / 100 * surcharge_factor
             cost = cost - self.solar_energy(self.start_date)
-        except ValueError:
+        except ValueError or TypeError:
             return "Invalid parameter values"
         return cost
 
@@ -42,7 +42,7 @@ class Calculator:
     def time_calculation(self, initial_state, final_state, capacity, power):
         try:
             time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
-        except ValueError:
+        except ValueError or TypeError:
             return "Invalid parater values passed in"
         return time
 
