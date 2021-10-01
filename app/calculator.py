@@ -32,7 +32,7 @@ class Calculator:
             else:
                 surcharge_factor = 1
 
-            cost = (int(final_state) - int(initial_state)) / 100 * int(capacity) * base_price / 100 * surcharge_factor
+            cost = (int(final_state) - int(initial_state)) / 100 * float(capacity) * base_price / 100 * surcharge_factor
             cost = cost - self.solar_energy(self.start_date)
         except ValueError:
             return "Invalid parameter values"
@@ -125,7 +125,7 @@ class Calculator:
             res = res - timedelta(days = 365)
         dl = self.get_day_light_length(res.date())
         si = self.get_sun_hour(res.date())
-        time_taken = self.time_calculation(int(self.initial_charge),int(self.final_charge),int(self.battery_capacity), self.POWER[int(self.charger_configuration)-1])
+        time_taken = self.time_calculation(int(self.initial_charge),int(self.final_charge),float(self.battery_capacity), self.POWER[int(self.charger_configuration)-1])
         time_taken = int(time_taken * 60)
         response = requests.get("http://118.138.246.158/api/v1/weather?location=" + str(self.id) + "&date=" + str(res.date()))
         temp = response.json()
@@ -182,7 +182,12 @@ class Calculator:
 
 
 #Test case 1 
-temp = Calculator("82", "20", "80", "22/02/2022", "12:30", "4", "7250")
+calculator = Calculator("17.6","100","100","13/04/2020","06:00","8","4000")
+is_peak = datetime.strptime("06:00", "%H:%M")
+date_format = datetime.strptime("13/04/2020","%d/%m/%Y")
+is_holiday = calculator.is_holiday(str(date_format.date()))
+is_peak = calculator.is_peak(is_peak.hour)
+print(calculator.cost_calculation("0","100","17", is_peak, is_holiday))
 # cost = calculator.cost_calculation(initial_charge, final_charge, battery_capacity, is_peak, is_holiday)
 
 #time = calculator.time_calculation(initial_charge, final_charge, battery_capacity, power)

@@ -24,13 +24,19 @@ class TestCalculator(unittest.TestCase):
         """
         # Empty values passed in to each and every parameter each to ensure that everything affects it.
         self.calculator = Calculator()
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in")) 
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in")) 
-        self.assertEqual(self.calculator.time_calculation("", "", "", ""), ("Invalid parater values passed in"))        
+        self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), ("Invalid parater values passed in"))
+        self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), ("Invalid parater values passed in"))
+        self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), ("Invalid parater values passed in")) 
+        self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), ("Invalid parater values passed in"))
 
+    def test_cost_1a(self):
+        """
+        Purpose : Checking for 1a test case found in blackbox testing
+        """
+        # Empty values passed in to each and every parameter each to ensure that everything affects it.
+        self.calculator = Calculator("17.6","100","100","13/04/2020","06:00","8","4000")
+        
+        
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
     unittest.TextTestRunner(verbosity=2).run(suite)
