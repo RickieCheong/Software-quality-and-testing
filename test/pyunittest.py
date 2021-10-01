@@ -13,3 +13,9 @@ class TestCalculator(unittest.TestCase):
     # you may create test suite if needed
     if __name__ == "__main__":
         pass
+
+def main():
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+main()

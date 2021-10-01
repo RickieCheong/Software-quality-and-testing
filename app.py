@@ -34,24 +34,26 @@ def operation_result():
         # if valid, create calculator to calculate the time and cost
         calculator = Calculator(battery_capacity,initial_charge,final_charge,start_date, start_time, charger_configuration, postcode)
         # you may change the logic as your like
-        duration = calculator.get_duration(start_time)
+        duration = calculator.get_duration()
 
-        is_peak = calculator.is_peak()
+        start_time = datetime.strptime(start_time,"%H:%M")
+        is_peak = calculator.is_peak(start_time.hour)
         
         if is_peak:
             peak_period = calculator.peak_period(start_date)
 
-        is_holiday = calculator.is_holiday(start_date)
-
-        # cost = calculator.cost_calculation(initial_charge, final_charge, battery_capacity, is_peak, is_holiday)
-
-        # time = calculator.time_calculation(initial_charge, final_charge, battery_capacity, power)
+        date = datetime.strptime(start_date, "%d/%m/%Y")
+        str_date = str(date.year) + "-" + str(date.month) + "-" + str(date.day)
+        is_holiday = calculator.is_holiday(str_date)
+        cost = calculator.cost_calculation(initial_charge, final_charge, battery_capacity, is_peak, is_holiday)
+        power = calculator.POWER[int(charger_configuration)-1]
+        time = calculator.time_calculation(initial_charge, final_charge, battery_capacity, power)
 
         # you may change the return statement also
         
         # values of variables can be sent to the template for rendering the webpage that users will see
-        # return render_template('calculator.html', cost = cost, time = time, calculation_success = True, form = calculator_form)
-        return render_template('calculator.html', calculation_success=True, form=calculator_form)
+        return render_template('calculator.html', cost = cost, time = time, calculation_success = True, form = calculator_form)
+        #return render_template('calculator.html', calculation_success=True, form=calculator_form)
 
     else:
         # battery_capacity = request.form['BatteryPackCapacity']
