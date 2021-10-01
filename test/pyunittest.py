@@ -1,4 +1,4 @@
-from calculator import *
+from app.calculator import *
 import unittest
 
 class TestCalculator(unittest.TestCase):

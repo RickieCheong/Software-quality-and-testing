@@ -12,6 +12,7 @@ build:
         - pip3 install --upgrade pip
         - pip3 install holidays
         - pip3 install requests
+        - pip3 install -r requirements.txt
 
 test:
     stage: test
@@ -21,7 +22,8 @@ test:
         - pip3 install --upgrade pip
         - pip3 install holidays
         - pip3 install requests
-        - coverage run --source=app --branch -m unittest app/pyunittest.py
+        - pip3 install -r requirements.txt
+        - coverage run --source=app --branch -m unittest test/pyunittest.py
         - coverage report -m
         - coverage html -d coverage_reports
     artifacts:
