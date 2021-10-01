@@ -65,12 +65,9 @@ class Calculator():
     def is_peak(self,hour):
 
         peak = False
-        if hour >= 6 and hour < 18:
+        if 6 <= hour < 18:
             peak = True
         return peak
-
-    def peak_period(self, start_time):
-        pass
 
     def get_duration(self):
         calc = ((int(self.final_charge) - int(self.initial_charge))/100) * int(self.battery_capacity) / self.POWER[int(self.charger_configuration)-1]
@@ -94,11 +91,6 @@ class Calculator():
         temp = response.json()
         return (temp["sunHours"])
 
-
-    # to be acquired through API
-    def get_solar_energy_duration(self, start_time):
-        pass
-
     # to be acquired through API
     def get_day_light_length(self, moving_date):
         date_obj = datetime.strptime(str(moving_date), '%Y-%m-%d')
@@ -109,10 +101,6 @@ class Calculator():
         rise_value = format(int(lst_rise[0]) + int(lst_rise[1])/60,'.2f')
         set_value = format(int(lst_set[0]) + int(lst_set[1])/60,'.2f')
         return (float(set_value) - float(rise_value))
-
-    # to be acquired through API
-    def get_solar_insolation(self, solar_insolation):
-        pass
 
     # to be acquired through API
     def get_cloud_cover(self, moving_date, time_loc):
@@ -126,7 +114,7 @@ class Calculator():
         return 0
 
     def calculate_solar_energy(self):
-        sum  = self.solar_energy(self.start_date)
+        sum = self.solar_energy(self.start_date)
         return sum
 
     def solar_energy(self,date):
@@ -156,34 +144,34 @@ class Calculator():
         else:
             initial_net = (res.minute - time.minute)/60
         final_net = res.minute/60
-        sum = 0 
+        sum = 0
         for j in range(time_precedence):
-            for i in range(initial_hour,final_hour+1, 1):
+            for i in range(initial_hour, final_hour+1, 1):
                 if lst_rise.hour<i<lst_set.hour:
-                    cc = self.get_cloud_cover(res.date(),i)
+                    cc = self.get_cloud_cover(res.date(), i)
                     if self.is_peak(i):
                         mult = 1
                     else:
                         mult = 0.5
                     if i == initial_hour:
-                        calc = si * initial_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
+                        calc = si * initial_net/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
                         net = (self.POWER[int(self.charger_configuration)-1]*initial_net) -calc
-                        if self.is_holiday(str(res.date())) == True:
+                        if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
                         else:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * mult
 
                     elif i == final_hour:
-                        calc = si * final_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
+                        calc = si * final_net/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
                         net = (self.POWER[int(self.charger_configuration)-1]*final_net) -calc
-                        if self.is_holiday(str(res.date())) == True:
+                        if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
                         else:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * mult
                     else:
-                        calc = si * 1/dl * (1-(cc/100)) * 50 *0.20 # solar energy
+                        calc = si * 1/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
                         net = (self.POWER[int(self.charger_configuration)-1]*1) -calc
-                        if self.is_holiday(str(res.date())) == True:
+                        if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
                         else:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * mult
@@ -191,101 +179,6 @@ class Calculator():
             res = res - timedelta(days = 365)
         return sum / 3 
 
-"""def provide_mean_sum1(self,time,time_taken,lst_rise,lst_set,si,dl):
-        res = time
-        initial_hour = res.hour
-        res = res + timedelta(minutes = time_taken)
-        final_hour = res.hour
-        if time.minute + time_taken > 60:
-            initial_net = (60 - time.minute) / 60
-        else:
-            initial_net = (res.minute - time.minute)/60
-        final_net = res.minute/60
-        sum = 0 
-        for i in range(initial_hour,final_hour+1, 1):
-            if lst_rise.hour<i<lst_set.hour:
-                cc = self.get_cloud_cover(res.date(),i)
-                if i == initial_hour:
-                    calc = si * initial_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*initial_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-
-                elif i == final_hour:
-                    calc = si * final_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*final_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                else:
-                    calc = si * 1/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*1) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                sum = sum + cost
-
-        res = res - timedelta(days = 365)
-        for i in range(initial_hour,final_hour+1, 1):
-            if lst_rise.hour<i<lst_set.hour:
-                cc = self.get_cloud_cover(res.date(),i) 
-                if i == initial_hour:
-                    calc = si * initial_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*initial_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-
-                elif i == final_hour:
-                    calc = si * final_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*final_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                else:
-                    calc = si * 1/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*1) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                sum = sum + cost
-
-        res = res - timedelta(days = 365)
-        for i in range(initial_hour,final_hour+1, 1):
-            if lst_rise.hour<i<lst_set.hour:
-                cc = self.get_cloud_cover(res.date(),i)
-                if i == initial_hour:
-                    calc = si * initial_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*initial_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-
-                elif i == final_hour:
-                    calc = si * final_net/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*final_net) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                else:
-                    calc = si * 1/dl * (1-(cc/100)) * 50 *0.20 # solar energy
-                    net = (self.POWER[int(self.charger_configuration)-1]*1) -calc
-                    if self.is_holiday(str(res.date())) == True:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1
-                    else:
-                        cost = self.COIN[int(self.charger_configuration)-1] * net 
-                sum = sum + cost
-        return sum / 3
-"""
 
 #Test case 1 
 temp = Calculator("82","20","80","22/02/2022","12:30","4","7250")
