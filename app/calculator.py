@@ -7,7 +7,7 @@ class Calculator():
     POWER = [2, 3.6, 7.2, 11, 22, 36, 90, 350]
     COIN = [0.05,0.075,0.1,0.125,0.15,0.2,0.3,0.5]
     # you can choose to initialise variables here, if needed.
-    def __init__(self, battery_capacity, initial_charge, final_charge, start_date, start_time, charger_configuration, postcode):
+    def __init__(self, battery_capacity = "", initial_charge = "", final_charge = "", start_date = "", start_time = "", charger_configuration = "", postcode = ""):
         self.battery_capacity = battery_capacity
         self.initial_charge = initial_charge
         self.final_charge = final_charge
@@ -19,23 +19,29 @@ class Calculator():
         
     # you may add more parameters if needed, you may modify the formula also.
     def cost_calculation(self, initial_state, final_state, capacity, is_peak, is_holiday):
-        if is_peak:
-            base_price = 100
-        else:
-            base_price = 50
+        try:
+            if is_peak:
+                base_price = 100
+            else:
+                base_price = 50
 
-        if is_holiday:
-            surcharge_factor = 1.1
-        else:
-            surcharge_factor = 1
+            if is_holiday:
+                surcharge_factor = 1.1
+            else:
+                surcharge_factor = 1
 
-        cost = (int(final_state) - int(initial_state)) / 100 * int(capacity) * base_price / 100 * surcharge_factor
-        cost = cost - self.solar_energy(self.start_date)
+            cost = (int(final_state) - int(initial_state)) / 100 * int(capacity) * base_price / 100 * surcharge_factor
+            cost = cost - self.solar_energy(self.start_date)
+        except ValueError:
+            return ("Invalid parameter values")
         return cost
 
     # you may add more parameters if needed, you may also modify the formula.
     def time_calculation(self, initial_state, final_state, capacity, power):
-        time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
+        try:
+            time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
+        except ValueError:
+            return "Invalid parater values passed in"
         return time
 
 
@@ -73,9 +79,12 @@ class Calculator():
     # to be acquired through API
     def getID(self):
         postcode = self.postcode
-        response = requests.get("http://118.138.246.158/api/v1/location?postcode=" + str(postcode))
-        data = response.json()
-        id = data[0]["id"]
+        try:
+            response = requests.get("http://118.138.246.158/api/v1/location?postcode=" + str(postcode))
+            data = response.json()
+            id = data[0]["id"]
+        except KeyError:
+            return KeyError("Failed API ID retrieval")
         return id
 
     # to be acquired through API
