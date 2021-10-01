@@ -24,6 +24,6 @@ test:
         - coverage run --source=app --branch -m unittest app/pyunittest.py
         - coverage report -m
         - coverage html -d coverage_reports
-    artifact:
+    artifacts:
         paths:
             -coverage_reports/
