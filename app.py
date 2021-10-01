@@ -38,10 +38,6 @@ def operation_result():
 
         start_time = datetime.strptime(start_time,"%H:%M")
         is_peak = calculator.is_peak(start_time.hour)
-        
-        if is_peak:
-            peak_period = calculator.peak_period(start_date)
-
         date = datetime.strptime(start_date, "%d/%m/%Y")
         str_date = str(date.year) + "-" + str(date.month) + "-" + str(date.day)
         is_holiday = calculator.is_holiday(str_date)
