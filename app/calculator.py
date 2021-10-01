@@ -41,7 +41,7 @@ class Calculator:
     # you may add more parameters if needed, you may also modify the formula.
     def time_calculation(self, initial_state, final_state, capacity, power):
         try:
-            time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
+            time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / int(power)
         except ValueError or TypeError:
             return "Invalid parater values passed in"
         return time
