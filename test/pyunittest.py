@@ -242,7 +242,7 @@ def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
     unittest.TextTestRunner(verbosity=2).run(suite)
     calculator_form_suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculatorForm)
-    unittest.TextTestResult(verbosity=2).run(calculator_form_suite)
+    unittest.TextTestRunner(verbosity=2).run(calculator_form_suite)
 
 
 main()
