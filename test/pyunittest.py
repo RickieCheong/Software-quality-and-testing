@@ -132,7 +132,7 @@ class TestCalculator(unittest.TestCase):
         Purpose : Testing mean sum without surcharges
         """
         # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
-        self.calculator = Calculator("200.6", "0", "100", "09/04/2020", "10:00", "4", "4000")  # Date is initialise to a weekend avoiding surcharges
+        self.calculator = Calculator("200.6", "0", "100", "09/04/2020", "05:00", "4", "4000")  # Date is initialise to a weekend avoiding surcharges
         time_str = self.calculator.start_date + " " + self.calculator.start_time  # Time taken exceeding one hour
         time = datetime.strptime(time_str, "%d/%m/%Y %H:%M")
         y = json.loads(self.json)
@@ -140,7 +140,7 @@ class TestCalculator(unittest.TestCase):
         lst_set = datetime.strptime(y["sunset"], "%H:%M:%S")
         dl = self.calculator.get_day_light_length(time.date())
         si = self.calculator.get_sun_hour(time.date())
-        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 2.73673245614035)
+        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 0.20502408685648552)
 
     def test_get_day_light_length(self):
         """
