@@ -30,10 +30,10 @@ class TestCalculator(unittest.TestCase):
         """
         # Empty values passed in to each and every parameter each to ensure that everything affects it.
         self.calculator = Calculator()
-        self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), ("Invalid parater values passed in"))
-        self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), ("Invalid parater values passed in"))
+        self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), ("Invalid parameter values passed in"))
+        self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), ("Invalid parameter values passed in"))
+        self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), ("Invalid parameter values passed in"))
+        self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), ("Invalid parameter values passed in"))
 
     def test_cost_1a(self):
         """
