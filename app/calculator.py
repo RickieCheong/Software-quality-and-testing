@@ -18,7 +18,7 @@ class Calculator:
         self.charger_configuration = charger_configuration
         self.postcode = postcode
         self.id = self.getID()
-        
+
     # you may add more parameters if needed, you may modify the formula also.
     def cost_calculation(self, initial_state, final_state, capacity, is_peak, is_holiday):
         try:
@@ -43,7 +43,7 @@ class Calculator:
         try:
             time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
         except ValueError:
-            return "Invalid parater values passed in"
+            return "Invalid parameter values passed in"
         return time
 
     # you may create some new methods at your convenience, or modify these methods, or choose not to use them.
@@ -182,7 +182,7 @@ class Calculator:
 
 
 #Test case 1 
-calculator = Calculator("17.6","100","100","13/04/2020","06:00","8","4000")
+calculator = Calculator("17.6", "100", "100", "13/04/2020", "06:00", "8", "4000")
 is_peak = datetime.strptime("06:00", "%H:%M")
 date_format = datetime.strptime("13/04/2020","%d/%m/%Y")
 is_holiday = calculator.is_holiday(str(date_format.date()))
