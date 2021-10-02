@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 from app.calculator_form import *
 from flask import Flask, flash
 from flask import render_template
-import main
+from main import *
 from flask import request
 
 class TestCalculatorForm(unittest.TestCase):
@@ -13,8 +13,8 @@ class TestCalculatorForm(unittest.TestCase):
     app = Flask(__name__)
 
     def test_battery(self):
-        main.ev_calculator_app.config["WTF_CSRF_ENABLED"] = False  # disable CSRF to prevent context errors
-        with main.ev_calculator_app.app_context():
+        ev_calculator_app.config["WTF_CSRF_ENABLED"] = False  # disable CSRF to prevent context errors
+        with ev_calculator_app.app_context():
                 form = Calculator_Form(request.form)
                 battery_pack_capacity_field = MagicMock()
                 battery_pack_capacity_field.data = None
