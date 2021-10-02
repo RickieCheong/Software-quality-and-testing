@@ -58,7 +58,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_is_peak(self):
         """
-        Purpose : Checking for peak hour 
+        Purpose : Checking if it accepts valid peak hour and refuses invalid peak hour
         """
         # A : hour >= 6 / B : hour < 18
         self.calculator = Calculator()
