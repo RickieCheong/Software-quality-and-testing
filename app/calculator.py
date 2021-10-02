@@ -146,7 +146,7 @@ class Calculator:
                     else:
                         mult = 0.5
                     if i == initial_hour:
-                        calc = si * initial_net/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
+                        calc = si * initial_net/dl * (1-(cc/100)) * 50 * 0.20  # solar energy
                         net = (self.POWER[int(self.charger_configuration)-1] * initial_net) - calc
                         if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
@@ -154,7 +154,7 @@ class Calculator:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * mult
 
                     elif i == final_hour:
-                        calc = si * final_net/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
+                        calc = si * final_net/dl * (1-(cc/100)) * 50 * 0.20  # solar energy
                         net = (self.POWER[int(self.charger_configuration)-1] * final_net) - calc
                         if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
