@@ -139,7 +139,7 @@ class Calculator:
         total = 0
         for j in range(time_precedence):
             for i in range(initial_hour, final_hour+1, 1):
-                if lst_rise.hour<i<lst_set.hour:
+                if lst_rise.hour < i < lst_set.hour:
                     cc = self.get_cloud_cover(res.date(), i)
                     if self.is_peak(i):
                         mult = 1
