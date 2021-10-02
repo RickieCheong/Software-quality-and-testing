@@ -160,7 +160,7 @@ class TestCalculator(unittest.TestCase):
         lst_set = datetime.strptime(y["sunset"], "%H:%M:%S")
         dl = self.calculator.get_day_light_length(time.date())
         si = self.calculator.get_sun_hour(time.date())
-        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 0.18020983906716778)
+        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 0.17245995451025942)
 
     def test_get_day_light_length(self):
         """
