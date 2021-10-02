@@ -43,7 +43,7 @@ class Calculator:
         try:
             time = (int(final_state) - int(initial_state)) / 100 * float(capacity) / int(power)
         except ValueError or TypeError:
-            return "Invalid parater values passed in"
+            return "Invalid parameter values passed in"
         return time
 
     # you may create some new methods at your convenience, or modify these methods, or choose not to use them.
