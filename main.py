@@ -10,7 +10,7 @@ SECRET_KEY = os.urandom(32)
 
 ev_calculator_app = Flask(__name__)
 ev_calculator_app.config['SECRET_KEY'] = SECRET_KEY
-
+ev_calculator_app.config["WTF_CSRF_ENABLED"] = True 
 
 @ev_calculator_app.route('/', methods=['GET', 'POST'])
 def operation_result():

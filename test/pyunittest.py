@@ -1,6 +1,12 @@
 from app.calculator import *
 import json
 import unittest
+from unittest.mock import MagicMock
+from app.calculator_form import *
+from flask import Flask, flash
+from flask import render_template
+from main import *
+from flask import request
 
 
 class TestCalculator(unittest.TestCase):
@@ -221,6 +227,7 @@ class TestCalculator(unittest.TestCase):
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
     unittest.TextTestRunner(verbosity=2).run(suite)
+
 
 
 main()
