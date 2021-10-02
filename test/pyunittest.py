@@ -185,6 +185,9 @@ class TestCalculator(unittest.TestCase):
         id = data[0]["id"]
         self.assertEqual(self.calculator.getID(), id)
 
+        # purposely given wrong postcode
+        self.calculator = Calculator("", "", "", "", "", "", "10000")
+        self.assertEqual(self.calculator.getID(), "Failed API ID retrieval")
 
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
