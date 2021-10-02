@@ -56,7 +56,20 @@ class TestCalculator(unittest.TestCase):
         self.assertAlmostEqual(int(calculator.cost_calculation("0","100","17.6", is_peak, is_holiday)), 17)
         self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "17.6", str(calculator.POWER[7])), 0.0502857142)
 
-        
+    def test_is_peak(self):
+        """
+        Purpose :
+        """
+        # A : hour >= 6 / B : hour < 18
+        self.calculator = Calculator()
+        # A = False
+        self.assertEqual(self.calculator.is_peak(5), False)
+        # A = True
+        self.assertEqual(self.calculator.is_peak(6), True)
+        # B = True
+        self.assertEqual(self.calculator.is_peak(17), True)
+        # B = False
+        self.assertEqual(self.calculator.is_peak(18), False)
         
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
