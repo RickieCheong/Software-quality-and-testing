@@ -77,7 +77,7 @@ class Calculator:
             data = response.json()
             id = data[0]["id"]
         except KeyError:
-            return KeyError("Failed API ID retrieval")
+            return "Failed API ID retrieval"
         return id
 
     # to be acquired through API
