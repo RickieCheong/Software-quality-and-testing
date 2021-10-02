@@ -100,16 +100,35 @@ class TestCalculator(unittest.TestCase):
         self.calculator = Calculator("17.6", "0", "100", "11/04/2022", "13:00", "8", "4000")
         self.assertAlmostEqual(self.calculator.solar_energy(self.calculator.start_date), 8.959827984966)
 
-    def test_provide_mean_sum(self):
-        self.calculator = Calculator("17.6", "0", "100", "11/04/2020", "13:00", "8", "4000")
-        time_str = self.calculator.start_date + " " + self.calculator.start_time
+    def test_provide_mean_sum_1(self):
+        """
+        Description : Testing mean sum with surcharges
+        """
+        # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
+        self.calculator = Calculator("200.6","0","100","11/04/2020","13:00","4","4000") # Date is initialise to a weekday thus giving us surcharges
+        time_str = self.calculator.start_date + " " + self.calculator.start_time # Time taken would not exceed one hour
         time = datetime.strptime(time_str, "%d/%m/%Y %H:%M")
         y = json.loads(self.json)
         lst_rise = datetime.strptime(y["sunrise"], "%H:%M:%S")
         lst_set = datetime.strptime(y["sunset"], "%H:%M:%S")
         dl = self.calculator.get_day_light_length(time.date())
         si = self.calculator.get_sun_hour(time.date())
-        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 60, lst_rise, lst_set, si, dl), 0)
+        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 50, lst_rise, lst_set, si, dl), 0.8267321962031)
+
+    def test_provide_mean_sum_2(self):
+        """
+        Description : Testing mean sum without surcharges
+        """
+        # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
+        self.calculator = Calculator("200.6","0","100","09/04/2020","13:00","4","4000") # Date is initialise to a weekend avoiding surcharges
+        time_str = self.calculator.start_date + " " + self.calculator.start_time # Time taken exceeding one hour
+        time = datetime.strptime(time_str, "%d/%m/%Y %H:%M")
+        y = json.loads(self.json)
+        lst_rise = datetime.strptime(y["sunrise"], "%H:%M:%S")
+        lst_set = datetime.strptime(y["sunset"], "%H:%M:%S")
+        dl = self.calculator.get_day_light_length(time.date())
+        si = self.calculator.get_sun_hour(time.date())
+        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 2.653409907966)
 
 
 def main():
