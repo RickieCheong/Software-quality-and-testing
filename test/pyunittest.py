@@ -132,7 +132,7 @@ class TestCalculator(unittest.TestCase):
         Purpose : Testing mean sum without surcharges
         """
         # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
-        self.calculator = Calculator("1000.6", "0", "100", "11/04/2020", "05:00", "4", "4000")  # Date is initialise to a weekend avoiding surcharges
+        self.calculator = Calculator("1000.6", "0", "100", "13/04/2020", "05:00", "4", "4000")  # Date is initialise to a weekend avoiding surcharges
         time_str = self.calculator.start_date + " " + self.calculator.start_time  # Time taken exceeding one hour
         time = datetime.strptime(time_str, "%d/%m/%Y %H:%M")
         y = json.loads(self.json)
