@@ -63,6 +63,20 @@ class TestCalculator(unittest.TestCase):
         self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "17.6", str(self.calculator.POWER[7])),
                                0.0502857142)
 
+    def test_is_holiday(self):
+        """
+        Purpose :
+        """
+        self.calculator = Calculator()
+        # October 28, a Thursday, normal weekday
+        self.assertEqual(self.calculator.is_holiday("2021-10-28"), True)
+        # October 29, a friday, Ekka People's day
+        self.assertEqual(self.calculator.is_holiday("2021-10-29"), True)
+        # October 30, a Saturday, normal weekend
+        self.assertEqual(self.calculator.is_holiday("2021-10-30"), False)
+        # Extremely old date that lies on a weekday
+        self.assertEqual(self.calculator.is_holiday("2001-10-31"), True)
+
     def test_is_peak(self):
         """
         Purpose : Checking for peak hour
