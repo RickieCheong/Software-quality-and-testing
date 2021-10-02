@@ -24,16 +24,16 @@ class TestCalculator(unittest.TestCase):
     #     self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "", "False"), 'Invalid parameter values')
     #     self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "True", ""), 'Invalid parameter values')
 
-    def test_time_empty_param(self):
-        """
-        Purpose : Checking for empty string as parameter to time_calculation
-        """
-        # Empty values passed in to each and every parameter each to ensure that everything affects it.
-        self.calculator = Calculator()
-        self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), "Invalid parameter values passed in")
-        self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), "Invalid parameter values passed in")
-        self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), "Invalid parameter values passed in")
-        self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), "Invalid parameter values passed in")
+    # def test_time_empty_param(self):
+    #     """
+    #     Purpose : Checking for empty string as parameter to time_calculation
+    #     """
+    #     # Empty values passed in to each and every parameter each to ensure that everything affects it.
+    #     self.calculator = Calculator()
+    #     self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), "Invalid parameter values passed in")
+    #     self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), "Invalid parameter values passed in")
+    #     self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), "Invalid parameter values passed in")
+    #     self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), "Invalid parameter values passed in")
 
     def test_cost_1a(self):
         """
@@ -173,7 +173,21 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.get_day_light_length(str(date.date())), expected)
 
     def test_get_cloud_cover(self):
-        pass
+        """
+        Purpose : Checking for cloud cover method inside calculator
+        """
+        # test A
+        self.calculator = Calculator("200.6", "0", "100", "11/04/2020", "13:00", "4", "4000")
+        date_str = self.calculator.start_date
+        date = datetime.strptime(date_str, "%d/%m/%Y")
+        self.assertEqual(self.calculator.get_cloud_cover(date.date(), 5), 48)
+
+        # test B
+        self.calculator = Calculator("200.6", "0", "100", "11/04/2020", "13:00", "4", "4000")
+        date_str = self.calculator.start_date
+        date = datetime.strptime(date_str, "%d/%m/%Y")
+        self.assertEqual(self.calculator.get_cloud_cover(date.date(), 21), 21)
+
 
     def test_getID(self):
         """
