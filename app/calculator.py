@@ -18,7 +18,7 @@ class Calculator:
         self.charger_configuration = charger_configuration
         self.postcode = postcode
         self.id = self.getID()
-
+        
     # you may add more parameters if needed, you may modify the formula also.
     def cost_calculation(self, initial_state, final_state, capacity, is_peak, is_holiday):
         try:
@@ -34,16 +34,16 @@ class Calculator:
 
             cost = (int(final_state) - int(initial_state)) / 100 * float(capacity) * base_price / 100 * surcharge_factor
             cost = cost - self.solar_energy(self.start_date)
-        except ValueError:
+        except ValueError or TypeError:
             return "Invalid parameter values"
         return cost
 
     # you may add more parameters if needed, you may also modify the formula.
     def time_calculation(self, initial_state, final_state, capacity, power):
         try:
-            time = (int(final_state) - int(initial_state)) / 100 * int(capacity) / power
-        except ValueError:
-            return "Invalid parameter values passed in"
+            time = (int(final_state) - int(initial_state)) / 100 * float(capacity) / int(power)
+        except ValueError or TypeError:
+            return "Invalid parater values passed in"
         return time
 
     # you may create some new methods at your convenience, or modify these methods, or choose not to use them.
@@ -64,7 +64,6 @@ class Calculator:
         return surcharge
 
     def is_peak(self, hour):
-
         peak = False
         if 6 <= hour < 18:
             peak = True
@@ -115,8 +114,8 @@ class Calculator:
         return 0
 
     def calculate_solar_energy(self):
-        sum = self.solar_energy(self.start_date)
-        return sum
+        total = self.solar_energy(self.start_date)
+        return total
 
     def solar_energy(self, date):
         res = date + " " + self.start_time
@@ -182,12 +181,13 @@ class Calculator:
 
 
 #Test case 1 
-calculator = Calculator("17.6", "100", "100", "13/04/2020", "06:00", "8", "4000")
-is_peak = datetime.strptime("06:00", "%H:%M")
-date_format = datetime.strptime("13/04/2020","%d/%m/%Y")
+calculator = Calculator("17.6","100","100","11/04/2020","13:00","8","4000")
+is_peak = datetime.strptime("13:00", "%H:%M")
+date_format = datetime.strptime("11/04/2020","%d/%m/%Y")
 is_holiday = calculator.is_holiday(str(date_format.date()))
 is_peak = calculator.is_peak(is_peak.hour)
-print(calculator.cost_calculation("0","100","17", is_peak, is_holiday))
+print(calculator.cost_calculation("0","100","17.6", is_peak, is_holiday))
+print(calculator.time_calculation("0", "100", "17.6", str(calculator.POWER[7])))
 # cost = calculator.cost_calculation(initial_charge, final_charge, battery_capacity, is_peak, is_holiday)
 
 #time = calculator.time_calculation(initial_charge, final_charge, battery_capacity, power)
