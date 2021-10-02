@@ -28,20 +28,18 @@ class Calculator_Form(FlaskForm):
         # another example of how to compare initial charge with final charge
         # you may modify this part of the code
         try: 
-            int(field.data)
+            data = int(field.data)
         except ValueError:
             raise ValueError("Initial charge data error")
-        data = int(field.data)
         if data > int(self.FinalCharge.data) or data < 0 or data > 100:
             raise ValueError("Initial charge data error")
 
     # validate final charge here
     def validate_FinalCharge(self, field):
         try: 
-            int(field.data)
+            data = int(field.data)
         except ValueError:
             raise ValueError("Final charge data error")
-        data = int(field.data)
         if data < int(self.InitialCharge.data) or data < 0 or data > 100:
             raise ValueError("Final charge data error")
 
@@ -61,20 +59,18 @@ class Calculator_Form(FlaskForm):
     # validate charger configuration here
     def validate_ChargerConfiguration(self, field):
         try: 
-            int(field.data)
+            data = int(field.data)
         except ValueError:
             raise ValueError("Charger configuration data error")
-        data = int(field.data)
         if data > 8 or data < 1:
             raise ValueError("Charger configuration data error")
 
     # validate postcode here
     def validate_PostCode(self, field):
         try:
-            int(field.data)
+            data = int(field.data)
         except ValueError:
             raise ValueError("Invalid Postcode")
-        data = int(field.data)
         statement = True  # True stating that it's not valid while false means it's valid
         if (200 <= data <= 299) or (800 <= data <= 999) or (1000 <= data <= 6797) or (6800 <= data <= 9999):
             statement = False
