@@ -175,6 +175,17 @@ class TestCalculator(unittest.TestCase):
     def test_get_cloud_cover(self):
         pass
 
+    def test_getID(self):
+        """
+        Purpose :
+        """
+        self.calculator = Calculator("", "", "", "", "", "", "4000")
+        cotton = '[{"id":"81a5f4b3-df47-4c20-ba2a-ea025e6ac0f8","postcode":"4000","name":"BRISBANE","state":"QLD","latitude":"-27.4660994","longitude":"153.023588","distanceToNearestWeatherStationMetres":2225.7460538928362,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"4dbd2be6-d7be-4698-aa33-0018f337e0de","postcode":"4000","name":"BRISBANE ADELAIDE STREET","state":"QLD","latitude":"-27.4666186","longitude":"153.027371","distanceToNearestWeatherStationMetres":1944.291037581407,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"c6ff84b6-4b65-4dd4-8daf-cf13f3fbb829","postcode":"4000","name":"BRISBANE CITY","state":"QLD","latitude":"-27.4698","longitude":"153.025","distanceToNearestWeatherStationMetres":1837.522855904486,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"bf9f7faf-c664-4593-80cb-155416095511","postcode":"4000","name":"BRISBANE CITY DC","state":"QLD","latitude":"-27.4679","longitude":"153.028","distanceToNearestWeatherStationMetres":1792.7293662813534,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"99d0ffc4-f32b-4d06-883a-8ca29d8db601","postcode":"4000","name":"BRISBANE GPO","state":"QLD","latitude":"-27.4679","longitude":"153.028","distanceToNearestWeatherStationMetres":1792.7293662813534,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"d026d69c-3616-4e36-84f6-77eba58c71b4","postcode":"4000","name":"BRISBANE-CITY","state":"QLD","latitude":"-27.4698","longitude":"153.025","distanceToNearestWeatherStationMetres":1837.522855904486,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"dec0048f-4565-4613-a3c9-14d8217167db","postcode":"4000","name":"PARLIAMENT HOUSE","state":"QLD","latitude":"-27.4754","longitude":"153.027","distanceToNearestWeatherStationMetres":1318.5927708639924,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"b54c90b9-db4e-47e8-a9d8-7f463d4b51b3","postcode":"4000","name":"PETRIE TERRACE","state":"QLD","latitude":"-27.4626","longitude":"153.013","distanceToNearestWeatherStationMetres":3259.541746946261,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}},{"id":"6e2b8349-4793-44b6-87a7-a737b2067280","postcode":"4000","name":"SPRING HILL","state":"QLD","latitude":"-27.46","longitude":"153.026","distanceToNearestWeatherStationMetres":2639.889855918334,"nearestWeatherStation":{"name":"BRISBANE","state":"QLD","latitude":"-27.4808","longitude":"153.0389"}}]'
+        data = json.loads(cotton)
+        id = data[0]["id"]
+        self.assertEqual(self.calculator.getID(), id)
+
+
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
     unittest.TextTestRunner(verbosity=2).run(suite)
