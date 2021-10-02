@@ -1,4 +1,4 @@
-from calculator import *
+from app.calculator import *
 import unittest
 
 class TestCalculator(unittest.TestCase):
@@ -70,10 +70,6 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calculator.is_peak(17), True)
         # B = False
         self.assertEqual(self.calculator.is_peak(18), False)
-
-    def test_solar_energy(self):
-        self.calculator = Calculator("17.6","0","100","11/04/2022","13:00","8","4000")
-        self.assertAlmostEqual(self.calculator.solar_energy(self.calculator.start_date), 8.959827984966)
         
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
