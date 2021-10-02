@@ -33,7 +33,7 @@ class Calculator:
                 surcharge_factor = 1
 
             cost = (int(final_state) - int(initial_state)) / 100 * float(capacity) * base_price / 100 * surcharge_factor
-            cost = cost - self.solar_energy(self.start_date)
+            cost -= self.solar_energy(self.start_date)
         except ValueError or TypeError:
             return "Invalid parameter values"
         return cost
@@ -50,14 +50,10 @@ class Calculator:
     def is_holiday(self, start_date):
         date_obj = datetime.strptime(start_date, '%Y-%m-%d')
         surcharge = False
-        """
-        Checking for weekday
-        """
+        # Checking for weekday
         if date_obj.weekday() < 5:
             surcharge = True
-        """
-        Checking for holiday
-        """
+        # Checking for holiday
         for i in holidays.Australia(years=date_obj.year).items():
             if i[0].strftime('%Y-%m-%d') == start_date:
                 surcharge = True
@@ -98,8 +94,8 @@ class Calculator:
         temp = response.json()
         lst_rise = temp["sunrise"].split(":")
         lst_set = temp["sunset"].split(":")
-        rise_value = format(int(lst_rise[0]) + int(lst_rise[1])/60,'.2f')
-        set_value = format(int(lst_set[0]) + int(lst_set[1])/60,'.2f')
+        rise_value = format(int(lst_rise[0]) + int(lst_rise[1])/60, '.2f')
+        set_value = format(int(lst_set[0]) + int(lst_set[1])/60, '.2f')
         return float(set_value) - float(rise_value)
 
     # to be acquired through API
@@ -113,18 +109,14 @@ class Calculator:
                 return temp[i]["cloudCoverPct"]
         return 0
 
-    def calculate_solar_energy(self):
-        total = self.solar_energy(self.start_date)
-        return total
-
     def solar_energy(self, date):
         res = date + " " + self.start_time
         res = datetime.strptime(res, '%d/%m/%Y %H:%M')
         while res.year > datetime.now().year or res.date() > datetime.now().date():
-            res = res - timedelta(days = 365)
+            res -= timedelta(days=365)
         dl = self.get_day_light_length(res.date())
         si = self.get_sun_hour(res.date())
-        time_taken = self.time_calculation(int(self.initial_charge),int(self.final_charge),float(self.battery_capacity), self.POWER[int(self.charger_configuration)-1])
+        time_taken = self.time_calculation(int(self.initial_charge), int(self.final_charge), float(self.battery_capacity), self.POWER[int(self.charger_configuration)-1])
         time_taken = int(time_taken * 60)
         response = requests.get("http://118.138.246.158/api/v1/weather?location=" + str(self.id) + "&date=" + str(res.date()))
         temp = response.json()
@@ -137,13 +129,13 @@ class Calculator:
         time_precedence = 3 
         res = time
         initial_hour = res.hour
-        res = res + timedelta(minutes = time_taken)
+        res += timedelta(minutes=time_taken)
         final_hour = res.hour
         if time.minute + time_taken > 60:
             initial_net = (60 - time.minute) / 60
         else:
-            initial_net = (res.minute - time.minute)/60
-        final_net = res.minute/60
+            initial_net = (res.minute - time.minute) / 60
+        final_net = res.minute / 60
         total = 0
         for j in range(time_precedence):
             for i in range(initial_hour, final_hour+1, 1):
@@ -155,7 +147,7 @@ class Calculator:
                         mult = 0.5
                     if i == initial_hour:
                         calc = si * initial_net/dl * (1-(cc/100)) * 50 * 0.20 # solar energy
-                        net = (self.POWER[int(self.charger_configuration)-1]*initial_net) - calc
+                        net = (self.POWER[int(self.charger_configuration)-1] * initial_net) - calc
                         if self.is_holiday(str(res.date())):
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
                         else:
@@ -175,8 +167,8 @@ class Calculator:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * 1.1 * mult
                         else:
                             cost = self.COIN[int(self.charger_configuration)-1] * net * mult
-                    total = total + cost
-            res = res - timedelta(days=365)
+                    total += cost
+            res -= timedelta(days=365)
         return total / 3
 
 
