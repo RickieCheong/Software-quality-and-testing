@@ -78,6 +78,18 @@ class TestCalculator(unittest.TestCase):
         # Extremely old date that lies on a weekday
         self.assertEqual(self.calculator.is_holiday("2001-10-31"), True)
 
+    def test_get_duration(self):
+        """
+        Purpose :
+        """
+        # charger configuration set to 8
+        self.calculator = Calculator("1000", "0", "100", "2021-10-28", "00:00", "8")
+        self.assertAlmostEqual(self.calculator.get_duration(), 2.86, 2)
+
+        # charger configuration set to 1
+        self.calculator = Calculator("1000", "0", "100", "2021-10-29", "00:00", "1")
+        self.assertAlmostEqual(self.calculator.get_duration(), 500.00, 2)
+
     def test_is_peak(self):
         """
         Purpose : Checking for peak hour
