@@ -9,31 +9,31 @@ class TestCalculator(unittest.TestCase):
     # you may create more test methods
     # you may add parameters to test methods
     # this is an example
-    # def test_cost_empty_param(self):
-    #     """
-    #     Purpose : Checking for empty string as parameter to cost_calculation
-    #     """
-    #     # Empty values passed in to each and every parameter each to ensure that everything affects it.
-    #     self.calculator = Calculator()
-    #     self.assertEqual(self.calculator.cost_calculation("", "100", "100", "True", "True"),
-    #                      'Invalid parameter values')
-    #     self.assertEqual(self.calculator.cost_calculation("0", "", "100", "True", "False"),
-    #                      'Invalid parameter values')
-    #     self.assertEqual(self.calculator.cost_calculation("0", "100", "", "False", "True"),
-    #                      'Invalid parameter values')
-    #     self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "", "False"), 'Invalid parameter values')
-    #     self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "True", ""), 'Invalid parameter values')
+    def test_cost_empty_param(self):
+        """
+        Purpose : Checking for empty string as parameter to cost_calculation
+        """
+        # Empty values passed in to each and every parameter each to ensure that everything affects it.
+        self.calculator = Calculator()
+        self.assertEqual(self.calculator.cost_calculation("", "100", "100", "True", "True"),
+                         'Invalid parameter values')
+        self.assertEqual(self.calculator.cost_calculation("0", "", "100", "True", "False"),
+                         'Invalid parameter values')
+        self.assertEqual(self.calculator.cost_calculation("0", "100", "", "False", "True"),
+                         'Invalid parameter values')
+        self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "", "False"), 'Invalid parameter values')
+        self.assertEqual(self.calculator.cost_calculation("0", "100", "100", "True", ""), 'Invalid parameter values')
 
-    # def test_time_empty_param(self):
-    #     """
-    #     Purpose : Checking for empty string as parameter to time_calculation
-    #     """
-    #     # Empty values passed in to each and every parameter each to ensure that everything affects it.
-    #     self.calculator = Calculator()
-    #     self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), "Invalid parameter values passed in")
-    #     self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), "Invalid parameter values passed in")
-    #     self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), "Invalid parameter values passed in")
-    #     self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), "Invalid parameter values passed in")
+    def test_time_empty_param(self):
+        """
+        Purpose : Checking for empty string as parameter to time_calculation
+        """
+        # Empty values passed in to each and every parameter each to ensure that everything affects it.
+        self.calculator = Calculator()
+        self.assertEqual(self.calculator.time_calculation("", "100", "100", "80"), "Invalid parameter values passed in")
+        self.assertEqual(self.calculator.time_calculation("0", "", "100", "80"), "Invalid parameter values passed in")
+        self.assertEqual(self.calculator.time_calculation("0", "100", "", "80"), "Invalid parameter values passed in")
+        self.assertEqual(self.calculator.time_calculation("0", "100", "100", ""), "Invalid parameter values passed in")
 
     def test_cost_1a(self):
         """
@@ -202,6 +202,7 @@ class TestCalculator(unittest.TestCase):
         # purposely given wrong postcode
         self.calculator = Calculator("", "", "", "", "", "", "10000")
         self.assertEqual(self.calculator.getID(), "Failed API ID retrieval")
+
 
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
