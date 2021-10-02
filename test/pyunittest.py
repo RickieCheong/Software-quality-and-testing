@@ -80,7 +80,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_get_duration(self):
         """
-        Purpose :
+        Purpose : checking to see if the calculations are working properly with the formula given
         """
         # charger configuration set to 8
         self.calculator = Calculator("1000", "0", "100", "2021-10-28", "00:00", "8")
