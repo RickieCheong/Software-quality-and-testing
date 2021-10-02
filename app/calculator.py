@@ -64,7 +64,6 @@ class Calculator:
         return surcharge
 
     def is_peak(self, hour):
-
         peak = False
         if 6 <= hour < 18:
             peak = True
@@ -115,8 +114,8 @@ class Calculator:
         return 0
 
     def calculate_solar_energy(self):
-        sum = self.solar_energy(self.start_date)
-        return sum
+        total = self.solar_energy(self.start_date)
+        return total
 
     def solar_energy(self, date):
         res = date + " " + self.start_time
