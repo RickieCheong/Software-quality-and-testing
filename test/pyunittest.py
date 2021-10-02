@@ -1,6 +1,26 @@
 from app.calculator import *
 import json
 import unittest
+from unittest.mock import MagicMock
+from app.calculator_form import *
+from flask import Flask, flash
+from flask import render_template
+import app
+from flask import request
+
+class TestCalculatorForm(unittest.TestCase):
+    fake_form = MagicMock()
+    app = Flask(__name__)
+
+    def test_battery(self):
+        app.ev_calculator_app.config["WTF_CSRF_ENABLED"] = False  # disable CSRF to prevent context errors
+        with app.ev_calculator_app.app_context():
+                form = Calculator_Form(request.form)
+                battery_pack_capacity_field = MagicMock()
+                battery_pack_capacity_field.data = None
+                with self.assertRaises() as e:
+                    form.validate_BatteryPackCapacity(battery_pack_capacity_field)
+                    self.assertEqual('Field data is num', str(e.exception))
 
 
 class TestCalculator(unittest.TestCase):
@@ -221,6 +241,8 @@ class TestCalculator(unittest.TestCase):
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
     unittest.TextTestRunner(verbosity=2).run(suite)
+    calculator_form_suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculatorForm)
+    unittest.TextTestResult(verbosity=2).run(calculator_form_suite)
 
 
 main()
