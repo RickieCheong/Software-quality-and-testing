@@ -31,10 +31,31 @@ class TestCalculator(unittest.TestCase):
 
     def test_cost_1a(self):
         """
-        Purpose : Checking for 1a test case found in blackbox testing
+        Purpose : Checking for peak hours as well as surchages.
         """
-        # Empty values passed in to each and every parameter each to ensure that everything affects it.
+        # Ensuring that the cost and time work for both surchages and non surchages as well as peak and non peak hours
         self.calculator = Calculator("17.6","100","100","13/04/2020","06:00","8","4000")
+        is_peak = datetime.strptime("06:00", "%H:%M")
+        date_format = datetime.strptime("13/04/2020","%d/%m/%Y")
+        is_holiday = calculator.is_holiday(str(date_format.date()))
+        is_peak = calculator.is_peak(is_peak.hour)
+        self.assertAlmostEqual(calculator.cost_calculation("0","100","17", is_peak, is_holiday), 18.7, "Value does not match the expected output")
+        self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "100", ""), ("Expected output does not match the actual output for the time part"))
+
+
+    def test_cost_1b(self):
+        """
+        Purpose : Checking for non peak hours as well as no surchages.
+        """
+        # Ensuring that the cost and time work for both surchages and non surchages as well as peak and non peak hours
+        self.calculator = Calculator("17.6","100","100","11/04/2020","13:00","8","4000")
+        is_peak = datetime.strptime("13:00", "%H:%M")
+        date_format = datetime.strptime("11/04/2020","%d/%m/%Y")
+        is_holiday = calculator.is_holiday(str(date_format.date()))
+        is_peak = calculator.is_peak(is_peak.hour)
+        self.assertAlmostEqual(calculator.cost_calculation("0","100","17.6", is_peak, is_holiday), 17, "Value does not match the expected output")
+        self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "17.6", calculator.POWER[7]), ("Expected output does not match the actual output for the time part"))
+
         
         
 def main():
