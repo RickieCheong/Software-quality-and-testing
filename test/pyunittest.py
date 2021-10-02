@@ -85,6 +85,17 @@ class TestCalculator(unittest.TestCase):
         self.calculator = Calculator("17.6", "0", "100", "11/04/2022", "13:00", "8", "4000")
         self.assertAlmostEqual(self.calculator.solar_energy(self.calculator.start_date), 8.959827984966)
 
+    def test_provide_mean_sum(self):
+        self.calculator = Calculator("17.6", "0", "100", "11/04/2020", "13:00", "8", "4000")
+        time_str = self.calculator.start_date + " " + self.calculator.start_time
+        time = datetime.strptime(time_str, "%d/%m/%Y %H:%M")
+        y = json.loads(self.json)
+        lst_rise = datetime.strptime(y["sunrise"], "%H:%M:%S")
+        lst_set = datetime.strptime(y["sunset"], "%H:%M:%S")
+        dl = self.calculator.get_day_light_length(time.date())
+        si = self.calculator.get_sun_hour(time.date())
+        self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 60, lst_rise, lst_set, si, dl), 0)
+
 
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCalculator)
