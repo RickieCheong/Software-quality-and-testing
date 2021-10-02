@@ -39,8 +39,8 @@ class TestCalculator(unittest.TestCase):
         date_format = datetime.strptime("13/04/2020","%d/%m/%Y")
         is_holiday = calculator.is_holiday(str(date_format.date()))
         is_peak = calculator.is_peak(is_peak.hour)
-        self.assertAlmostEqual(calculator.cost_calculation("0","100","17", is_peak, is_holiday), 18.7, "Value does not match the expected output")
-        self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "100", ""), 0.286,("Expected output does not match the actual output for the time part"))
+        self.assertAlmostEqual(float(calculator.cost_calculation("0","100","17", is_peak, is_holiday)), 18.7)
+        self.assertAlmostEqual(float(self.calculator.time_calculation("0", "100", "100", str(calculator.POWER[7]))), 0.2857142857)
 
 
     def test_cost_1b(self):
@@ -53,8 +53,8 @@ class TestCalculator(unittest.TestCase):
         date_format = datetime.strptime("11/04/2020","%d/%m/%Y")
         is_holiday = calculator.is_holiday(str(date_format.date()))
         is_peak = calculator.is_peak(is_peak.hour)
-        self.assertAlmostEqual(calculator.cost_calculation("0","100","17.6", is_peak, is_holiday), 17, "Value does not match the expected output")
-        self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "17.6", calculator.POWER[7]), 0.05028, ("Expected output does not match the actual output for the time part"))
+        self.assertAlmostEqual(int(calculator.cost_calculation("0","100","17.6", is_peak, is_holiday)), 17)
+        self.assertAlmostEqual(self.calculator.time_calculation("0", "100", "17.6", str(calculator.POWER[7])), 0.0502857142)
 
         
         
