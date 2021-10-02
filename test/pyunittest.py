@@ -102,7 +102,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_provide_mean_sum_1(self):
         """
-        Description : Testing mean sum with surcharges
+        Purpose : Testing mean sum with surcharges
         """
         # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
         self.calculator = Calculator("200.6","0","100","11/04/2020","13:00","4","4000") # Date is initialise to a weekday thus giving us surcharges
@@ -117,7 +117,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_provide_mean_sum_2(self):
         """
-        Description : Testing mean sum without surcharges
+        Purpose : Testing mean sum without surcharges
         """
         # Mock data can be on top of the method at the beginner of the class. We are using that JSON data as our mock api data.
         self.calculator = Calculator("200.6","0","100","09/04/2020","13:00","4","4000") # Date is initialise to a weekend avoiding surcharges
@@ -129,6 +129,12 @@ class TestCalculator(unittest.TestCase):
         dl = self.calculator.get_day_light_length(time.date())
         si = self.calculator.get_sun_hour(time.date())
         self.assertAlmostEqual(self.calculator.provide_mean_sum(time, 130, lst_rise, lst_set, si, dl), 2.653409907966)
+
+    def test_calculate_solar_energy(self):
+        """
+        Purpose :
+        """
+
 
 
 def main():
