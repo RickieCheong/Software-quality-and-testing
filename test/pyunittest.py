@@ -188,6 +188,11 @@ class TestCalculator(unittest.TestCase):
         date = datetime.strptime(date_str, "%d/%m/%Y")
         self.assertEqual(self.calculator.get_cloud_cover(date.date(), 21), 21)
 
+        # test C
+        self.calculator = Calculator("200.6", "0", "100", "09/04/2020", "15:00", "4", "4000")
+        date_str = self.calculator.start_date
+        date = datetime.strptime(date_str, "%d/%m/%Y")
+        self.assertEqual(self.calculator.get_cloud_cover(date.date(), 30), 0)
 
     def test_getID(self):
         """
